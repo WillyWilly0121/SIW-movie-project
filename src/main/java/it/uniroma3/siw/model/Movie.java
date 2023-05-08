@@ -4,16 +4,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Movie {
@@ -24,9 +27,9 @@ public class Movie {
 	private String title;
 	@NotNull
 	@PastOrPresent
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date releaseDate;
-	@NotNull
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Image> images;
 	@ManyToOne
 	private Artist director;

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Film</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+    <h1>Dettagli Film</h1>
+    <div th:if="${movie}">
+        <span th:text="${movie.title}">Up!</span>
+        <span th:text="'(' + ${movie.releaseDate} + ')'">2000</span>
+        <ul>
+        <li th:each="image : ${movie.images}">
+            <div>
+                <img th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}" width="100">
+            </div>
+        </li>
+    </ul>
+    </div>
+    <div th:unless="${movie}">Non esiste</div>
+  </body>
+</html>
