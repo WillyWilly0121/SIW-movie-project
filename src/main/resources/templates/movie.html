@@ -22,12 +22,12 @@
         <span th:text="${movie.title}">Up!</span>
         <span th:text="'(' + ${movie.releaseDate} + ')'">2000</span>
         <ul>
-        <li th:each="image : ${movie.images}">
-            <div>
-                <img th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}" width="100">
-            </div>
-        </li>
-    </ul>
+        	<li th:each="image : ${movie.images}">
+            	<div>
+                	<img th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}" width="100">
+            	</div>
+        	</li>
+    	</ul>
     </div>
     <div th:unless="${movie}">Non esiste</div>
   </body>

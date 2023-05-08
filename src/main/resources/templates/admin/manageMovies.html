@@ -2,9 +2,7 @@
 <html>
 
 <head>
-	<title>
-		SiwMovie - Gestione Film
-	</title>
+	<title>Film</title>
 	<link rel="stylesheet" href="/css/stile.css" />
 </head>
 
@@ -20,13 +18,14 @@
 	</header>
 
 	<div><a href="/"><img src="/images/logo-siw.png" width="50%" /></a></div>
-	<h1>Gestione Film</h1>
-	<div>
-		<a href="/admin/formNewMovie">Inserisci i dati di un film</a>
-	</div>
-	<div>
-		<a href="/admin/manageMovies">Gestisci i film</a>
-	</div>
+	<h1>Film</h1>
+	<div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
+	<ul>
+		<li th:each="movie : ${movies}">
+			<span th:text="${movie.title} + ' (' + ${movie.releaseDate} + ')'"></span>
+			<a th:href="@{'/admin/formUpdateMovie' + '/' + ${movie.id}}">Modifica</a>
+		</li>
+	</ul>
 </body>
 
 </html>

@@ -10,14 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Artist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cognome;
+	@NotBlank
 	private String bornDate;
 	private String deathDate;
 	@OneToOne
@@ -78,5 +82,17 @@ public class Artist {
 		Artist other = (Artist) obj;
 		return Objects.equals(bornDate, other.bornDate) && Objects.equals(cognome, other.cognome)
 				&& Objects.equals(nome, other.nome);
+	}
+	public List<Movie> getDirected() {
+		return directed;
+	}
+	public void setDirected(List<Movie> directed) {
+		this.directed = directed;
+	}
+	public List<Movie> getActed() {
+		return acted;
+	}
+	public void setActed(List<Movie> acted) {
+		this.acted = acted;
 	}
 }
