@@ -35,6 +35,8 @@ public class Movie {
 	private Artist director;
 	@ManyToMany(mappedBy="acted")
 	private List<Artist> actors;
+	@OneToMany(mappedBy="movie")
+	private List<Review> reviews;
 	
 	public Long getId() {
 		return id;
@@ -86,5 +88,11 @@ public class Movie {
 			return false;
 		Movie other = (Movie) obj;
 		return Objects.equals(title, other.title);
+	}
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 }

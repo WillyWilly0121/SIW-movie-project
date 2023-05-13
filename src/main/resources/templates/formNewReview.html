@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		SiwMovie - Registrazione
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${#request.userPrincipal}">
+			<span th:text="${#request.userPrincipal.principal.username}"></span>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${#request.userPrincipal}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div>
+		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
+	</div>
+	<h1>Registrazione nuovo utente</h1>
+	<form th:action="@{'/addReview/' + ${movie.id}}" method="POST">
+		<div>
+			<label>Titolo:</label>
+			<span>
+				<input type="text" placeholder="titolo" required th:field="${review.title}" />
+			</span>
+			<span th:if="${#fields.hasErrors('review.title')}" th:errors="${review.title}"
+				th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<label>Voto:</label>
+			<span><input type="text" placeholder="voto" required th:field="${review.grade}" />
+			</span>
+			<span th:if="${#fields.hasErrors('review.grade')}" th:errors="${review.grade}"
+				th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<label>Testo della recensione:</label>
+			<span><textarea placeholder="text" required th:field="${review.text}" /></textarea></span>
+			<span th:if="${#fields.hasErrors('review.text')}" th:errors="${review.text}" th:style="'color:red'">
+			</span>
+		</div>
+		<div>
+			<button type="submit">Fine</button>
+		</div>
+	</form>
+</body>
+
+</html>

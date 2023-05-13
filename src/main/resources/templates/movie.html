@@ -28,6 +28,19 @@
             	</div>
         	</li>
     	</ul>
+    	<ul>
+        	<li th:each="review : ${movie.reviews}">
+            	<div>
+                	<span th:text="${review.title} + ' scritta da ' + ${review.user.name} + ' ' + ${review.user.surname} + ' valutazione: ' + ${review.grade}"></span>
+            	</div>
+            	<div>
+                	<span th:text="${review.text}"></span>
+            	</div>
+        	</li>
+    	</ul>
+    	<div th:if="${#request.userPrincipal}">
+			<a th:href="@{'/review' + '/' + ${movie.id}}">Aggiungi una recensione</a>
+		</div>
     </div>
     <div th:unless="${movie}">Non esiste</div>
   </body>
