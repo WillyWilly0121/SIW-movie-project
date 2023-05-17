@@ -7,11 +7,11 @@
 
 <body>
 	<header>
-		<div th:if="${#request.userPrincipal}">
-			<span th:text="${#request.userPrincipal.principal.username}"></span>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
 			<a href="/logout">Logout</a>
 		</div>
-		<div th:unless="${#request.userPrincipal}">
+		<div th:unless="${userDetails}">
 			<a href="/login">Login</a>
 		</div>
 	</header>
@@ -36,9 +36,10 @@
             	<div>
                 	<span th:text="${review.text}"></span>
             	</div>
+            	<div th:if="${credentials.isAdmin()}">Elimina Recensione</div>
         	</li>
     	</ul>
-    	<div th:if="${#request.userPrincipal}">
+    	<div th:if="${userDetails}">
 			<a th:href="@{'/review' + '/' + ${movie.id}}">Aggiungi una recensione</a>
 		</div>
     </div>

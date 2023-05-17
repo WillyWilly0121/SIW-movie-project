@@ -1,13 +1,13 @@
 package it.uniroma3.siw.model;
 
-import javax.persistence.OneToOne;
+import jakarta.persistence.OneToOne;
 
 import java.util.Objects;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class Credentials {
@@ -51,6 +51,12 @@ public class Credentials {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public boolean isAdmin() {
+		if (this.role.equals(Credentials.ADMIN_ROLE)) {
+			return true;
+		}
+		return false;
 	}
 	@Override
 	public int hashCode() {
