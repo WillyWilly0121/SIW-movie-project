@@ -9,6 +9,7 @@
 	<header>
 		<div th:if="${userDetails}">
 			<span th:text="${userDetails.username}"></span>
+			<a th:href="@{'/userDetails' + '/' + ${credenziali.user.id}}" th:text="'Informazioni Personali'"></a>
 			<a href="/logout">Logout</a>
 		</div>
 		<div th:unless="${userDetails}">
