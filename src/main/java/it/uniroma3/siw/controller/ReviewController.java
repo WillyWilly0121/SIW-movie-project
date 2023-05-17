@@ -71,4 +71,18 @@ public class ReviewController {
 			return "formNewReview.html";
 		}
 	}
+	
+	@GetMapping("/deleteReviewFromMoviePage/{reviewId}/{movieId}")
+	public String deleteReviewFromMoviePage(@PathVariable("reviewId") Long reviewId, @PathVariable("movieId") Long movieId, Model model) {
+		this.reviewRepository.delete(this.reviewRepository.findById(reviewId).get());
+		model.addAttribute("movie", this.movieRepository.findById(movieId).get());
+		return "movie.html";
+	}
+	
+	@GetMapping("/deleteReviewFromUserPage/{reviewId}/{userId}")
+	public String deleteReviewFromUserPage(@PathVariable("reviewId") Long reviewId, @PathVariable("userId") Long userId, Model model) {
+		this.reviewRepository.delete(this.reviewRepository.findById(reviewId).get());
+		model.addAttribute("user", this.userRepository.findById(userId).get());
+		return "userDetails.html";
+	}
 }

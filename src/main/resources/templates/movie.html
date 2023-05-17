@@ -31,12 +31,16 @@
     	<ul>
         	<li th:each="review : ${movie.reviews}">
             	<div>
-                	<span th:text="${review.title} + ' scritta da ' + ${review.user.name} + ' ' + ${review.user.surname} + ' valutazione: ' + ${review.grade}"></span>
+                	<span th:text="${review.title} + ' scritta da '"></span>
+                	<a th:href="@{'/userDetails' + '/' + ${review.user.id}}" th:text="${review.user.name} + ' ' + ${review.user.surname}"></a>
+                	<span th:text="' valutazione: ' + ${review.grade}"></span>
             	</div>
             	<div>
                 	<span th:text="${review.text}"></span>
             	</div>
-            	<div th:if="${credentials.isAdmin()}">Elimina Recensione</div>
+            	<div th:if="${userDetails}">
+            		<a th:if="${credenziali.isAdmin() or credenziali.user.id==review.user.id}" th:href="@{'/deleteReviewFromMoviePage' + '/' + ${review.id} + '/' + ${movie.id}}">Elimina Recensione</a>
+            	</div>
         	</li>
     	</ul>
     	<div th:if="${userDetails}">

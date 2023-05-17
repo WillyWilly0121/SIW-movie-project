@@ -18,7 +18,32 @@
 			<a href="/login">Login</a>
 		</div>
 	</header>
-	
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<h1>Dettagli utente</h1>
+	<div>
+		<span th:text="'Nome: ' + ${user.name} "></span>
+	</div>
+	<div>
+		<span th:text="'Cognome: ' + ${user.surname} "></span>
+	</div>
+	<div>
+		<span th:text="'Recensioni scritte:'"></span>
+	</div>
+	<ul>
+        <li th:each="review : ${user.reviews}">
+            <div>
+                <span th:text="${review.title} + ' per il film: '"></span>
+                <a th:href="@{'/movie' + '/' + ${review.movie.id}}" th:text="${review.movie.title}"></a>
+                <span th:text="' valutazione: ' + ${review.grade}"></span>
+            </div>
+            <div>
+                <span th:text="${review.text}"></span>
+            </div>
+            <div th:if="${userDetails}">
+            	<a th:if="${credenziali.isAdmin() or credenziali.user.id==user.id}" th:href="@{'/deleteReviewFromUserPage' + '/' + ${review.id} + '/' + ${user.id}}">Elimina Recensione</a>
+            </div>
+        </li>
+    </ul>
 </body>
 
 </html>

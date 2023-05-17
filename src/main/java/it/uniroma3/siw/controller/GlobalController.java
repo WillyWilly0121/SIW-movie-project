@@ -27,7 +27,7 @@ public class GlobalController {
         return user;
     }
     
-    @ModelAttribute("credentials")
+    @ModelAttribute("credenziali")
     public Credentials getCredentials() {
         UserDetails user = null;
 
