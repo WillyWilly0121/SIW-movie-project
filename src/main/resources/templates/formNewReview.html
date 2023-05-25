@@ -24,7 +24,7 @@
 		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
 	</div>
 	<h1>Registrazione nuovo utente</h1>
-	<form th:action="@{'/addReview/' + ${movie.id}}" method="POST">
+	<form th:action="@{'/addReview/' + ${movie.id} + '/' + ${credenziali.user.id}}" method="POST">
 		<div>
 			<label>Titolo:</label>
 			<span>

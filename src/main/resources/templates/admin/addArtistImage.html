@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		New Artist
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<header>
+		<div th:if="${userDetails}">
+			<span th:text="${userDetails.username}"></span>
+			<a th:href="@{'/userDetails' + '/' + ${credenziali.user.id}}" th:text="'Informazioni Personali'"></a>
+			<a href="/logout">Logout</a>
+		</div>
+		<div th:unless="${userDetails}">
+			<a href="/login">Login</a>
+		</div>
+	</header>
+
+	<div><a href="/"><img src="/images/logo-siw.png" width="50%"/></a></div>
+	<h1>Aggiungi l'immagine all'artista</h1>
+	<form th:action="@{'/admin/updateArtistImage/'+ ${artist.id}}" method="POST" th:object="${artist}" enctype="multipart/form-data">
+		<div>
+			<span th:text="${messaggioErrore}">Errore</span>
+		</div>
+		<div>
+			<label>Fotografia:</label> <span><input type="file" name="file" required accept="image/jpeg, image/jpg, image/png"></span>
+		</div>
+		
+		<div>
+			<span><button type="submit">Conferma</button></span>
+		</div>
+	</form>
+</body>
+
+</html>

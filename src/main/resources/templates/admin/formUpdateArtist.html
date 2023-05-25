@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Artista</title>
+
+<head>
+	<title>
+		Artist
+	</title>
 	<link rel="stylesheet" href="/css/stile.css" />
 </head>
 
@@ -25,8 +28,18 @@
         <span th:if="${artist.deathDate}" th:text="'(' + ${artist.deathDate} + ')'"></span>
         <div th:if="${artist.image}">
 			<img th:src="@{'data:image/'+${artist.image.getFormat()}+';base64,'+${artist.image.getBase64()}}" width="100">
+			<div>
+				<a th:href="@{'/admin/removeArtistImage/' + ${artist.id} + '/' + ${artist.image.id}}">Rimuovi immagine</a>
+			</div>
         </div>
+        <div th:unless="${artist.image}">
+			<a th:href="@{'/admin/addArtistImage/' + ${artist.id}}">Aggiungi immagine</a>
+		</div>
+		<a th:href="@{'/admin/removeArtist/' + ${artist.id}}">
+				<button type="button">Elimina Attore</button>
+		</a>
     </div>
     <div th:unless="${artist}">Non esiste</div>
-  </body>
+</body>
+
 </html>

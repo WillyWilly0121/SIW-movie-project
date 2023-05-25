@@ -31,13 +31,15 @@
             		<div>
                 		<img th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}" width="100">
             		</div>
+            		<a th:href="@{'/admin/removeMovieImage/' + ${movie.id} + '/' + ${image.id}}">Rimuovi immagine</a>
         		</li>
     		</ul>
-    		<button><a th:href="@{'/admin/editImages/' + ${movie.id}}">Modifica immagini</a></button>
 		</div>
+		<a th:href="@{'/admin/addMovieImages/' + ${movie.id}}">Aggiungi immagini</a>
 		<div th:if="${movie.director}">
 			<span>Regista: </span><span th:text="${movie.director.nome} + ' ' + ${movie.director.cognome}"></span>
-			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a></span>
+			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Modifica regista</a>
+			<button><a th:href="@{'/admin/removeDirector/' + ${movie.id}}">Elimina regista</a></button>
 		</div>
 		<div th:unless="${movie.director}">
 			<a th:href="@{'/admin/addDirector/' + ${movie.id}}">Aggiungi regista</a>
@@ -52,7 +54,11 @@
 				<button type="button">Modifica</button>
 			</a>
 		</div>
-		<div th:unless="${movie}">Film non esistente</div>
+		<a th:href="@{'/admin/removeMovie/' + ${movie.id}}">
+				<button type="button">Elimina Film</button>
+		</a>
+	</div>
+	<div th:unless="${movie}">Film non esistente</div>
 </body>
 
 </html>
