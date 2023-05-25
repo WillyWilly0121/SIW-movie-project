@@ -5,29 +5,45 @@
 	<title>
 		SiwMovie - Homepage
 	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a th:href="@{'/userDetails' + '/' + ${credenziali.user.id}}" th:text="'Informazioni Personali'"></a>
-			<a href="/logout">Logout</a>
-		</div>
-		<div th:unless="${userDetails}">
-			<a href="/login">Login</a>
-		</div>
-	</header>
-
-	<div><img src="/images/logo-siw.png" width="50%" /></div>
-	<h1>Consulta l'archivio</h1>
-	<div>
-		<a href="/movie">Elenco Film</a>
-	</div>
-	<div>
-		<a href="/artist">Elenco Artisti</a>
-	</div>
+	<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom p-3">
+		<div class="col-md-3 mb-2 mb-md-0">
+        	<a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+          		<img src="/images/logo-siw.png" width="50%" />
+        	</a>
+      	</div>
+	
+      	<div th:if="${userDetails}" class="col-md-3 text-end">
+			<div class="dropdown">
+  				<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" th:text="${userDetails.username}">
+  				</button>
+  				<ul class="dropdown-menu">
+    				<li><a class="dropdown-item" th:href="@{'/userDetails' + '/' + ${credenziali.user.id}}" th:text="'Informazioni Personali'"></a></li>
+    				<li><a class="dropdown-item" href="/logout" th:text="'Logout'"></a></li>
+  				</ul>
+			</div>
+      	</div>
+      	<div th:unless="${userDetails}" class="col-md-3 text-end">
+			<a href="/login"><button type="button" class="btn btn-outline-primary me-2" th:text="'Login'"></button></a>
+      	</div>
+    </header>
+    <div class="container my-5">
+  		<div class="p-5 text-center bg-body-tertiary rounded-3">
+    		<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-film" viewBox="0 0 16 16">
+  				<path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
+			</svg>
+    		<h1 class="text-body-emphasis" th:text="'Consulta il nostro archivio'"></h1>
+    		<div class="d-inline-flex gap-2 mb-5">
+      			<a href="/movie"><button th:text="'Elenco film'" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+      			</button></a>
+      			<a href="/artist"><button th:text="'Elenco Artisti'" class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+      			</button></a>
+    	</div>
+  	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </body>
 
 </html>
