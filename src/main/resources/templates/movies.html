@@ -40,10 +40,17 @@
 					<div class="card" style="width: 18rem;" th:each="movie : ${movies}">
 						<div th:id="'carousel' + ${movie.id}" class="carousel slide">
 							<div class="carousel-inner">
-								<div class="carousel-item active" th:each="image : ${movie.images}">
-									<img class="d-block w-100"
-										th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}"
-										width="100">
+								<div th:if="${movie.images!=null && !movie.images.isEmpty()}">
+									<div class="carousel-item active">
+										<img class="d-block w-100"
+											th:src="@{'data:image/'+${movie.getFirstImage().getFormat()}+';base64,'+${movie.getFirstImage().getBase64()}}"
+											width="100">
+									</div>
+									<div class="carousel-item" th:each="image : ${movie.getAllImagesWithoutFirst()}">
+										<img class="d-block w-100"
+											th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}"
+											width="100">
+									</div>
 								</div>
 								<button class="carousel-control-prev" type="button"
 									th:data-bs-target="'#carousel' + ${movie.id}" data-bs-slide="prev">

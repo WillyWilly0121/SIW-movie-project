@@ -38,6 +38,18 @@ public class Movie {
 	@OneToMany(mappedBy="movie")
 	private List<Review> reviews;
 	
+	public Image getFirstImage() {
+		return this.images.get(0);
+	}
+	
+	public List<Image> getAllImagesWithoutFirst(){
+		try {
+			return this.images.subList(1, images.size());
+		} catch(Exception e) {
+			return null;
+		}
+	}
+	
 	public Long getId() {
 		return id;
 	}
