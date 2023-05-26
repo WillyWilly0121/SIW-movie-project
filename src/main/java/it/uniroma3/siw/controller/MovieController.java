@@ -132,11 +132,15 @@ public class MovieController {
 		Movie movie = this.movieService.getMovie(movieId);
 		Image image = this.imageService.getImage(imageId);
 		if(movie!=null && image!=null) {
-			movie.getImages().remove(image);
-			this.movieService.saveMovie(movie);
-			this.imageService.deleteImage(image);
-			model.addAttribute("movie", movie);
-			return "admin/formUpdateMovie.html";
+			if(movie.getImages().size()==1) {
+				return "admin/formUpdateMovie.html";
+			} else {
+				movie.getImages().remove(image);
+				this.movieService.saveMovie(movie);
+				this.imageService.deleteImage(image);
+				model.addAttribute("movie", movie);
+				return "admin/formUpdateMovie.html";
+			}
 		} else {
 			return "resourceNotFound.html";
 		}

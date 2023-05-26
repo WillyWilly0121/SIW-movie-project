@@ -3,55 +3,77 @@
 
 <head>
 	<title>
-		SiwMovie - Registrazione
+		SiwMovie - Nuova Recensione
 	</title>
-	<link rel="stylesheet" href="/css/stile.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 
 <body>
-	<header>
-		<div th:if="${userDetails}">
-			<span th:text="${userDetails.username}"></span>
-			<a th:href="@{'/userDetails' + '/' + ${credenziali.user.id}}" th:text="'Informazioni Personali'"></a>
-			<a href="/logout">Logout</a>
+	<header
+		class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom p-3">
+		<div class="col-md-3 mb-2 mb-md-0">
+			<a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
+				<img src="/images/logo-siw.png" width="50%" />
+			</a>
 		</div>
-		<div th:unless="${userDetails}">
-			<a href="/login">Login</a>
+
+		<div th:if="${userDetails}" class="col-md-3 text-end">
+			<div class="dropdown">
+				<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+					aria-expanded="false" th:text="${userDetails.username}">
+				</button>
+				<ul class="dropdown-menu">
+					<li><a class="dropdown-item" th:href="@{'/userDetails' + '/' + ${credenziali.user.id}}"
+							th:text="'Informazioni Personali'"></a></li>
+					<li><a class="dropdown-item" href="/logout" th:text="'Logout'"></a></li>
+				</ul>
+			</div>
+		</div>
+		<div th:unless="${userDetails}" class="col-md-3 text-end">
+			<a href="/login"><button type="button" class="btn btn-outline-primary me-2" th:text="'Login'"></button></a>
 		</div>
 	</header>
-
-	<div>
-		<a href="/"><img src="/images/logo-siw.png" width="50%" /></a>
-	</div>
-	<h1>Registrazione nuovo utente</h1>
-	<form th:action="@{'/addReview/' + ${movie.id} + '/' + ${credenziali.user.id}}" method="POST">
-		<div>
-			<label>Titolo:</label>
-			<span>
-				<input type="text" placeholder="titolo" required th:field="${review.title}" />
-			</span>
-			<span th:if="${#fields.hasErrors('review.title')}" th:errors="${review.title}"
-				th:style="'color:red'">
-			</span>
+	<div class="container my-5">
+		<div class="p-5 text-center bg-body-tertiary rounded-3">
+			<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+				class="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+				<path
+					d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+			</svg>
+			<h1 class="text-body-emphasis" th:text="'Inserisci la recensione'"></h1>
+			<form th:action="@{'/addReview/' + ${movie.id} + '/' + ${credenziali.user.id}}" method="POST">
+				<div class="mb-3">
+					<label class="form-label" th:text="'Titolo:'"></label>
+					<span>
+						<input type="text" class="form-control" required th:field="${review.title}" />
+					</span>
+					<span th:if="${#fields.hasErrors('review.title')}" th:errors="${review.title}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" th:text="'Voto:'"></label>
+					<span><input type="text" class="form-control" required th:field="${review.grade}" />
+					</span>
+					<span th:if="${#fields.hasErrors('review.grade')}" th:errors="${review.grade}"
+						th:style="'color:red'">
+					</span>
+				</div>
+				<div class="mb-3">
+					<label class="form-label" th:text="'Testo della recensione:'"></label>
+					<textarea class="form-control" required th:field="${review.text}" rows="3"></textarea>
+					<span th:if="${#fields.hasErrors('review.text')}" th:errors="${review.text}" th:style="'color:red'">
+					</span>
+				</div>
+				<div class="mb-3">
+					<button type="submit" class="btn btn-primary" th:text="'Fine'"></button>
+				</div>
+			</form>
 		</div>
-		<div>
-			<label>Voto:</label>
-			<span><input type="text" placeholder="voto" required th:field="${review.grade}" />
-			</span>
-			<span th:if="${#fields.hasErrors('review.grade')}" th:errors="${review.grade}"
-				th:style="'color:red'">
-			</span>
-		</div>
-		<div>
-			<label>Testo della recensione:</label>
-			<span><textarea placeholder="text" required th:field="${review.text}" /></textarea></span>
-			<span th:if="${#fields.hasErrors('review.text')}" th:errors="${review.text}" th:style="'color:red'">
-			</span>
-		</div>
-		<div>
-			<button type="submit">Fine</button>
-		</div>
-	</form>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+			crossorigin="anonymous"></script>
 </body>
 
 </html>

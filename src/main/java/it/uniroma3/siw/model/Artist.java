@@ -1,7 +1,10 @@
 package it.uniroma3.siw.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +14,8 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 public class Artist {
@@ -21,9 +26,13 @@ public class Artist {
 	private String nome;
 	@NotBlank
 	private String cognome;
-	@NotBlank
-	private String bornDate;
-	private String deathDate;
+	@NotNull
+	@PastOrPresent
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date bornDate;
+	@PastOrPresent
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date deathDate;
 	@OneToOne
 	private Image image;
 	@OneToMany(mappedBy="director")
@@ -49,39 +58,11 @@ public class Artist {
 	public void setCognome(String cognome) {
 		this.cognome = cognome;
 	}
-	public String getBornDate() {
-		return bornDate;
-	}
-	public void setBornDate(String bornDate) {
-		this.bornDate = bornDate;
-	}
-	public String getDeathDate() {
-		return deathDate;
-	}
-	public void setDeathDate(String deathDate) {
-		this.deathDate = deathDate;
-	}
 	public Image getImage() {
 		return image;
 	}
 	public void setImage(Image image) {
 		this.image = image;
-	}
-	@Override
-	public int hashCode() {
-		return Objects.hash(bornDate, cognome, nome);
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Artist other = (Artist) obj;
-		return Objects.equals(bornDate, other.bornDate) && Objects.equals(cognome, other.cognome)
-				&& Objects.equals(nome, other.nome);
 	}
 	public List<Movie> getDirected() {
 		return directed;
@@ -94,5 +75,32 @@ public class Artist {
 	}
 	public void setActed(List<Movie> acted) {
 		this.acted = acted;
+	}
+	public Date getBornDate() {
+		return bornDate;
+	}
+	public void setBornDate(Date bornDate) {
+		this.bornDate = bornDate;
+	}
+	public Date getDeathDate() {
+		return deathDate;
+	}
+	public void setDeathDate(Date deathDate) {
+		this.deathDate = deathDate;
+	}
+	@Override
+	public int hashCode() {
+		return Objects.hash(cognome, nome);
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Artist other = (Artist) obj;
+		return Objects.equals(cognome, other.cognome) && Objects.equals(nome, other.nome);
 	}
 }

@@ -22,6 +22,15 @@ public class User {
 	private String email;
 	@OneToMany(mappedBy="user")
 	private List<Review> reviews;
+	
+	public boolean hasWrittenReview(Movie movie) {
+		for(Review review: reviews) {
+			if (review.getMovie().equals(movie)) {
+				return false;
+			}
+		}
+		return true;
+	}
 	public Long getId() {
 		return id;
 	}

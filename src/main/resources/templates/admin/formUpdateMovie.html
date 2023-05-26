@@ -31,7 +31,7 @@
             		<div>
                 		<img th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}" width="100">
             		</div>
-            		<a th:href="@{'/admin/removeMovieImage/' + ${movie.id} + '/' + ${image.id}}">Rimuovi immagine</a>
+            		<a th:if="${movie.images.size()!=1}" th:href="@{'/admin/removeMovieImage/' + ${movie.id} + '/' + ${image.id}}">Rimuovi immagine</a>
         		</li>
     		</ul>
 		</div>
