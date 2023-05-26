@@ -36,8 +36,8 @@
 		<div class="p-5 text-center bg-body-tertiary rounded-3">
 			<div th:if="${artists!=null && !artists.isEmpty()}">
 				<h1 class="text-body-emphasis mb-5" th:text="'Artisti attualmente nel sistema'"></h1>
-				<div class="d-inline-flex gap-2 mb-5">
-					<div th:each="artist : ${artists}" class="card" style="width: 18rem; height: 27rem;">
+				<div class="d-inline-flex gap-2 mb-5 row">
+					<div th:each="artist : ${artists}" class="card col-md-4" style="width: 18rem; height: 27rem;">
 						<img class="d-block w-100 rounded-top" style="object-fit: cover; height: 18rem;"
 							th:src="@{'data:image/'+${artist.image.getFormat()}+';base64,'+${artist.image.getBase64()}}"
 							width="100">

@@ -36,8 +36,8 @@
 		<div class="p-5 text-center bg-body-tertiary rounded-3">
 			<div th:if="${movies!=null && !movies.isEmpty()}">
 				<h1 class="text-body-emphasis mb-5" th:text="'Film attualmente nel sistema'"></h1>
-				<div class="d-inline-flex gap-2 mb-5">
-					<div class="card" style="width: 18rem; height: 27rem;" th:each="movie : ${movies}">
+				<div class="d-inline-flex gap-2 mb-5 row">
+					<div class="card col-md-4" style="width: 18rem; height: 27rem;" th:each="movie : ${movies}">
 						<div th:id="'carousel' + ${movie.id}" class="carousel slide">
 							<div class="carousel-inner">
 								<div th:if="${movie.images!=null && !movie.images.isEmpty()}">

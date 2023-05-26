@@ -43,8 +43,8 @@
 			</svg>
 			<h1 class="text-body-emphasis m-3" th:text="'Aggiorna il film: ' + ${movie.title}"></h1>
 			<div th:if="${movie.images!=null && !movie.images.isEmpty()}">
-				<div class="d-inline-flex gap-2 mb-3">
-					<div class="card" style="width: 18rem; height: 25rem;" th:each="image : ${movie.images}">
+				<div class="d-inline-flex gap-2 mb-3 row">
+					<div class="card col-md-4" style="width: 18rem; height: 25rem;" th:each="image : ${movie.images}">
 						<img class="d-block w-100 rounded-top" style="object-fit: cover; width: 10rem; height: 20rem;"
 							th:src="@{'data:image/'+${image.getFormat()}+';base64,'+${image.getBase64()}}">
 						<div class="card-body">
@@ -101,7 +101,7 @@
 				<div th:if="${movie.actors!=null && !movie.actors.isEmpty()}">
 					<h3 class="text-body-emphasis" th:text="'Attori:'"></h3>
 					<div class="list-group mx-auto" style="width: 20rem;">
-						<li th:each="actor : ${movie.actors}" th:href="@{'/artist' + '/' + ${actor.id}}"
+						<li th:each="actor : ${movie.actors}"
 							class="list-group-item" th:text="${actor.nome} + ' ' + ${actor.cognome}"></li>
 					</div>
 					<a th:href="@{'/admin/updateActors/' + ${movie.id}}">
