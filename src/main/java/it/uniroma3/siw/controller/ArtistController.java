@@ -1,10 +1,12 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.Date;
 
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,8 +68,7 @@ public class ArtistController {
             	bindingResult.reject("image.readError");
             }
 			this.artistService.saveArtist(artist); 
-			model.addAttribute("artist", artist);
-			return "artist.html";
+			return "redirect:/artist/" + artist.getId();
 		} else {
 			return "admin/formNewArtist.html"; 
 		}
@@ -83,8 +84,12 @@ public class ArtistController {
 	public String formUpdateArtist(@PathVariable("id") Long id, Model model) {
 		Artist artist = this.artistService.getArtist(id);
 		if(artist!=null) {
-			model.addAttribute("artist", artist);
-			return "admin/formUpdateArtist.html";
+			if(artist.getImage()==null) {
+				return "redirect:/admin/addArtistImage/" + artist.getId();
+			} else {
+				model.addAttribute("artist", artist);
+				return "admin/formUpdateArtist.html";
+			}
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -98,8 +103,7 @@ public class ArtistController {
 			artist.setImage(null);
 			this.artistService.saveArtist(artist);
 			this.imageService.deleteImage(image);
-			model.addAttribute("artist", artist);
-			return "admin/formUpdateArtist.html";
+			return "redirect:/admin/addArtistImage/" + artistId;
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -136,8 +140,7 @@ public class ArtistController {
 	        } catch (IOException ex) {
 	        	errors.reject("image.readError");
 	        }
-			model.addAttribute("artist", artist);
-			return "admin/formUpdateArtist.html";
+			return "redirect:/admin/formUpdateArtist/" + artist.getId();
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -164,6 +167,34 @@ public class ArtistController {
 			return "resourceNotFound.html";
 		}
 	}
+	
+	@PostMapping(value="/admin/addDeathDate/{id}")
+	public String addDeathDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @PathVariable("id") Long id, Model model) {
+		Artist artist = this.artistService.getArtist(id);
+		if(artist!=null) {
+			Date dataCorrente = new Date();
+			if(date.compareTo(dataCorrente)<=0) {
+				artist.setDeathDate(date);
+				this.artistService.saveArtist(artist);
+			}
+			return "redirect:/admin/formUpdateArtist/" + artist.getId();
+		} else {
+			return "resourceNotFound.html";
+		}
+	}
+	
+	@GetMapping(value="admin/removeDeathDate/{id}")
+	public String deleteDeathDate(@PathVariable("id") Long id, Model model) {
+		Artist artist = this.artistService.getArtist(id);
+		if(artist!=null) {
+			artist.setDeathDate(null);
+			this.artistService.saveArtist(artist);
+			return "redirect:/admin/formUpdateArtist/" + artist.getId();
+		} else {
+			return "resourceNotFound.html";
+		}
+	}
+	
 	
 	@GetMapping(value="/artist")
 	public String getArtists(Model model) {

@@ -36,7 +36,7 @@
 		<div class="p-5 text-center bg-body-tertiary rounded-3">
 			<h1 class="text-body-emphasis" th:text="${artist.nome} + ' ' + ${artist.cognome}"></h1>
 			<div class="d-flex justify-content-center mt-3">
-				<img class="d-block w-25 rounded"
+				<img th:if="${artist.image}" class="d-block w-25 rounded"
 					th:src="@{'data:image/'+${artist.image.getFormat()}+';base64,'+${artist.image.getBase64()}}"
 					width="100">
 			</div>
@@ -59,9 +59,10 @@
 				</div>
 			</div>
 		</div>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-			integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-			crossorigin="anonymous"></script>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

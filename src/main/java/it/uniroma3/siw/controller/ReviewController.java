@@ -56,12 +56,9 @@ public class ReviewController {
 			this.reviewValidator.validate(review, bindingResult);
 			if (!bindingResult.hasErrors()) {
 				this.reviewService.saveReview(review, movie, user);
-				model.addAttribute("movie", movie);
-				return "movie.html";
+				return "redirect:/movie/" + movie.getId();
 			} else {
-				model.addAttribute("review", new Review());
-				model.addAttribute("movie", movie);
-				return "formNewReview.html";
+				return "redirect:/review/" + movie.getId();
 			}
 		} else {
 			return "resourceNotFound.html";
@@ -74,8 +71,7 @@ public class ReviewController {
 		Movie movie = this.movieService.getMovie(movieId);
 		if(movie!=null && review!=null) {
 			this.reviewService.deleteReview(review);
-			model.addAttribute("movie", movie);
-			return "movie.html";
+			return "redirect:/movie/" + movie.getId();
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -87,8 +83,19 @@ public class ReviewController {
 		User user = this.userService.getUser(userId);
 		if(review!=null && user!=null) {
 			this.reviewService.deleteReview(review);
-			model.addAttribute("user", user);
-			return "userDetails.html";
+			return "redirect:/userDetails/" + user.getId();
+		} else {
+			return "resourceNotFound.html";
+		}
+	}
+	
+	@GetMapping("/admin/deleteReviewFromUpdateMoviePage/{reviewId}/{movieId}")
+	public String deleteReviewFromUpdateMoviePage(@PathVariable("reviewId") Long reviewId, @PathVariable("movieId") Long movieId, Model model) {
+		Review review = this.reviewService.getReview(reviewId);
+		Movie movie = this.movieService.getMovie(movieId);
+		if(movie!=null && review!=null) {
+			this.reviewService.deleteReview(review);
+			return "redirect:/admin/formUpdateMovie/" + movie.getId();
 		} else {
 			return "resourceNotFound.html";
 		}

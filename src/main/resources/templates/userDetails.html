@@ -45,6 +45,9 @@
 			<div>
 				<h3 class="text-body-emphasis mt-3" th:text="'Recensioni scritte:'"></h3>
 			</div>
+			<div th:if="${user.reviews==null || user.reviews.isEmpty()}">
+				<span th:text="'Nessuna recensione scritta da questo utente'"></span>
+			</div>
 			<div class="card text-bg-light mb-3 mt-3 mx-auto" th:each="review : ${user.reviews}">
 				<div class="card-header">
 					<div>

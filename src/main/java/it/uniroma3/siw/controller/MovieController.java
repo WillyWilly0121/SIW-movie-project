@@ -89,8 +89,7 @@ public class MovieController {
 	            }
 	        }
 			this.movieService.saveMovie(movie); 
-			model.addAttribute("movie", movie);
-			return "movie.html";
+			return "redirect:/movie/" + movie.getId();
 		} else {
 			return "admin/formNewMovie.html"; 
 		}
@@ -138,8 +137,7 @@ public class MovieController {
 				movie.getImages().remove(image);
 				this.movieService.saveMovie(movie);
 				this.imageService.deleteImage(image);
-				model.addAttribute("movie", movie);
-				return "admin/formUpdateMovie.html";
+				return "redirect:/admin/formUpdateMovie/" + movie.getId();
 			}
 		} else {
 			return "resourceNotFound.html";
@@ -157,11 +155,7 @@ public class MovieController {
 			actor.getActed().add(movie);
 			this.artistService.saveArtist(actor);
 			this.movieService.saveMovie(movie);
-			Set<Artist> actorsToAdd = this.artistService.getArtistNotContaingMovie(movie);
-			model.addAttribute("notActors", actorsToAdd);
-			model.addAttribute("actors", movie.getActors());
-			model.addAttribute("movie", movie);
-			return "admin/actorsToAdd.html";
+			return "redirect:/admin/updateActors/" + movie.getId();
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -178,11 +172,7 @@ public class MovieController {
 			actor.getActed().remove(movie);
 			this.artistService.saveArtist(actor);
 			this.movieService.saveMovie(movie);
-			Set<Artist> actorsToAdd = this.artistService.getArtistNotContaingMovie(movie);
-			model.addAttribute("notActors", actorsToAdd);
-			model.addAttribute("actors", movie.getActors());
-			model.addAttribute("movie", movie);
-			return "admin/actorsToAdd.html";
+			return "redirect:/admin/updateActors/" + movie.getId();
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -195,8 +185,7 @@ public class MovieController {
 		if(movie!=null && director!=null) {
 			movie.setDirector(director);
 			this.movieService.saveMovie(movie);
-			model.addAttribute("movie", movie);
-			return "admin/formUpdateMovie.html";
+			return "redirect:/admin/formUpdateMovie/" + movie.getId();
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -208,8 +197,7 @@ public class MovieController {
 		if(movie!=null) {
 			movie.setDirector(null);
 			this.movieService.saveMovie(movie);
-			model.addAttribute("movie", movie);
-			return "admin/formUpdateMovie.html";
+			return "redirect:/admin/formUpdateMovie/" + movie.getId();
 		} else {
 			return "resourceNotFound.html";
 		}
@@ -261,8 +249,7 @@ public class MovieController {
 	            }
 	        }
 			this.movieService.saveMovie(movie); 
-			model.addAttribute("movie", movie);
-			return "admin/formUpdateMovie.html";
+			return "redirect:/admin/formUpdateMovie/" + movie.getId();
 		} else {
 			return "resourceNotFound.html";
 		}

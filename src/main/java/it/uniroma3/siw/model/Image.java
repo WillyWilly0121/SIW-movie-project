@@ -51,15 +51,4 @@ public class Image {
 		result = prime * result + Objects.hash(filename);
 		return result;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Image other = (Image) obj;
-		return Objects.equals(filename, other.filename) && Arrays.equals(imageData, other.imageData);
-	}
 }

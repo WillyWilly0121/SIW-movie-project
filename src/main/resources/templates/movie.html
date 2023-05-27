@@ -36,7 +36,8 @@
 		<div class="p-5 text-center bg-body-tertiary rounded-3">
 			<h1 class="text-body-emphasis" th:text="${movie.title}"></h1>
 			<div class="d-inline-flex gap-2 mb-5">
-				<div th:if="${movie.images!=null && !movie.images.isEmpty()}" th:id="'carousel' + ${movie.id}" class="carousel slide" style="width: 25rem; height: 35rem;">
+				<div th:if="${movie.images!=null && !movie.images.isEmpty()}" th:id="'carousel' + ${movie.id}"
+					class="carousel slide" style="width: 25rem; height: 35rem;">
 					<div class="carousel-inner">
 						<div>
 							<div class="carousel-item active">
@@ -61,7 +62,8 @@
 					</div>
 				</div>
 			</div>
-			<h3 class="text-body-emphasis m-3" th:text="'Data di uscita: ' + ${#dates.format(movie.releaseDate, 'dd-MM-yyyy')}"></h3>
+			<h3 class="text-body-emphasis m-3"
+				th:text="'Data di uscita: ' + ${#dates.format(movie.releaseDate, 'dd-MM-yyyy')}"></h3>
 			<div class="d-flex justify-content-around m-5">
 				<div th:if="${movie.director}">
 					<h3 class="text-body-emphasis" th:text="'Regista:'"></h3>
@@ -95,6 +97,9 @@
 				</div>
 			</div>
 			<h3 class="text-body-emphasis mt-3" th:text="'Recensioni:'"></h3>
+			<div th:if="${movie.reviews==null || movie.reviews.isEmpty()}">
+				<span th:text="'Ancora nessuna recensione per questo film'"></span>
+			</div>
 			<div class="card text-bg-light mb-3 mt-3 mx-auto" th:each="review : ${movie.reviews}">
 				<div class="card-header">
 					<div>
@@ -113,7 +118,8 @@
 						</div>
 						<div>
 							<span th:text="'Scritta da:'"></span>
-							<a th:href="@{'/userDetails' + '/' + ${review.user.id}}" th:text="${review.user.name} + ' ' + ${review.user.surname}"></a>
+							<a th:href="@{'/userDetails' + '/' + ${review.user.id}}"
+								th:text="${review.user.name} + ' ' + ${review.user.surname}"></a>
 						</div>
 					</div>
 				</div>
@@ -127,9 +133,20 @@
 					</div>
 				</div>
 			</div>
-			<th:block th:if="${userDetails != null && credenziali.user.hasWrittenReview(movie)}">
-				<a th:href="@{'/review' + '/' + ${movie.id}}"><button type="button" class="btn btn-outline-primary" th:text="'Aggiungi una recensione'"></button></a>
-			</th:block>
+			<div class="m-3">
+				<th:block th:if="${userDetails != null && credenziali.user.hasWrittenReview(movie)}">
+					<a th:href="@{'/review' + '/' + ${movie.id}}"><button type="button" class="btn btn-outline-primary"
+							th:text="'Aggiungi una recensione'"></button></a>
+				</th:block>
+			</div>
+			<div th:unless="${userDetails}" class="m-3">
+				<span th:text="'Per scrivere una recensione effettua il'"></span>
+				<a th:href="'/login'"><button type="button" class="btn btn-outline-primary"
+						th:text="'Login'"></button></a>
+				<span th:text="'oppure'"></span>
+				<a th:href="'/register'"><button type="button" class="btn btn-outline-primary"
+						th:text="'Registrati'"></button></a>
+			</div>
 
 		</div>
 	</div>
