@@ -151,7 +151,7 @@ public class ArtistController {
 		Artist artist = this.artistService.getArtist(id);
 		if(artist!=null) {
 			this.artistService.deleteArtist(artist);
-			return "admin/indexArtist.html";
+			return "redirect:/admin/indexArtist";
 		} else {
 			return "resourceNotFound.html";
 		}
